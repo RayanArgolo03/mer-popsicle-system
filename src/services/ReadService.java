@@ -11,24 +11,24 @@ public final class ReadService {
 
         System.out.println(title);
         PrintEnumsService.printEnums(enums);
-        System.out.print("Your choice: ");
-        int choose = readInt();
+        int choose = readInt("Your choice: ");
 
         while (!validChoice(enums.length, choose)) {
             System.out.println("Invalid!");
             PrintEnumsService.printEnums(enums);
-            System.out.print("Your choice: ");
-            choose = readInt();
+            choose = readInt("Your choice: ");
         }
 
         return enums[choose - 1];
     }
 
-    public static int readInt() {
+    public static int readInt(String title) {
+        System.out.print("Enter with " + title + "in number: ");
         return sc.nextInt();
     }
 
-    public static String readString() {
+    public static String readString(String title) {
+        System.out.print("Enter with " + title + ": ");
         return sc.next();
     }
 
