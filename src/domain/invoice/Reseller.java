@@ -2,15 +2,18 @@ package domain.invoice;
 
 import domain.login.Login;
 
-import java.util.*;
+import java.util.Objects;
 
 public class Reseller {
+
+    private static int incrementId = 1;
+    private int id;
     private String name;
     private Login login;
     private ContactPerson contactPerson;
-    private boolean online = false;
 
     public Reseller(String name, Login login, ContactPerson contactPerson) {
+        id = incrementId++;
         this.name = name;
         this.login = login;
         this.contactPerson = contactPerson;
@@ -36,16 +39,8 @@ public class Reseller {
         return login;
     }
 
-    public boolean isOnline() {
-        return online;
-    }
-
-    public void setOnline() {
-        this.online = true;
-    }
-
-    public void setOffline() {
-        this.online = false;
+    public int getId() {
+        return id;
     }
 
     @Override
