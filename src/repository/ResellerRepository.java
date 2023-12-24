@@ -18,10 +18,18 @@ public class ResellerRepository implements IResellerRepository {
         this.resellers = new HashSet<>();
     }
 
-    public Set<Reseller> getResellers() {
-        return Collections.unmodifiableSet(resellers);
+    public Reseller getFirstReseller() {
+        return resellers.first();
     }
 
+    public Reseller getLastReseller() {
+        return resellers.last();
+    }
+
+    @Override
+    public boolean add(Reseller reseller) {
+        return resellers.add(reseller);
+    }
 
     @Override
     public Optional<Reseller> findBy(Predicate<Reseller> predicate) {
