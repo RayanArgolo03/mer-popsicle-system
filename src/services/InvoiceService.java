@@ -81,9 +81,9 @@ public class InvoiceService {
     }
 
     public BigDecimal receiveValue() {
-        System.out.println("Enter the total value: (with dot to separate decimal values!)");
 
-        String value = ReadService.readString();
+
+        String value = ReadService.readString("Enter the total value: (with dot to separate decimal values!)");
         if (!validValue(value)) throw new InvoiceException("Invalid format!");
 
         if (!value.contains(".")) value += ".00";
