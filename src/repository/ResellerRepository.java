@@ -11,7 +11,8 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 public class ResellerRepository implements IResellerRepository {
-    private final Set<Reseller> resellers;
+    private final TreeSet<Reseller> resellers;
+
 
     public ResellerRepository() {
         this.resellers = new HashSet<>();
