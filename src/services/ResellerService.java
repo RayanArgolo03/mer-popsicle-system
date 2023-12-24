@@ -12,6 +12,7 @@ import java.util.Optional;
 public final class ResellerService {
 
     private final ResellerRepository repository;
+    private boolean newAccountCreated;
 
     public ResellerService() {
         this.repository = new ResellerRepository();
