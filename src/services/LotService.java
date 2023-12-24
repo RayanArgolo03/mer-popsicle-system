@@ -4,9 +4,9 @@ import domain.invoice.Lot;
 import domain.invoice.Reseller;
 import domain.popsicle.*;
 import enums.ConfirmChoice;
-import enums.PriceConstant;
 import enums.Packaging;
 import enums.PopsicleType;
+import enums.PriceConstant;
 import exceptions.LotException;
 import factory.PopsicleFactory;
 import repository.LotRepository;
@@ -15,13 +15,11 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class LotService {
-
     private final LotRepository repository;
 
     public LotService() {
         this.repository = new LotRepository();
     }
-
 
     public boolean addLots(Collection<Lot> lots) {
         return repository.add(lots);
@@ -112,9 +110,8 @@ public class LotService {
         ConfirmChoice confirmChoice;
 
         do {
-            System.out.println("Enter the number " + (components.size() + 1) + " " + title + ": ");
 
-            String name = ReadService.readString().toUpperCase();
+            String name = ReadService.readString("Enter the number " + (components.size() + 1) + " " + title + ": ").toUpperCase();
 
             //Create enum for this?
             T component = switch (title) {
@@ -143,13 +140,11 @@ public class LotService {
 
     private int receiveQuantity() {
 
-        System.out.print("Quantity of popsicles: ");
-        int quantity = ReadService.readInt();
+        int quantity = ReadService.readInt("Quantity of popsicles: ");
 
         while (!validQuantity(quantity)) {
             System.out.println("Invalid!");
-            System.out.print("Quantity of popsicles: ");
-            quantity = ReadService.readInt();
+            quantity = ReadService.readInt("Quantity of popsicles: ");
         }
 
         return quantity;
