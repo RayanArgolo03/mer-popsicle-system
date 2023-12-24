@@ -4,10 +4,7 @@ import domain.invoice.Reseller;
 import domain.login.Login;
 import interfaces.IResellerRepository;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Predicate;
 
 public class ResellerRepository implements IResellerRepository {
@@ -15,7 +12,11 @@ public class ResellerRepository implements IResellerRepository {
 
 
     public ResellerRepository() {
-        this.resellers = new HashSet<>();
+        this.resellers = new TreeSet<>(Comparator.comparing(Reseller::getId));
+    }
+
+    public TreeSet<Reseller> getResellers() {
+        return resellers;
     }
 
     public Reseller getFirstReseller() {
@@ -36,11 +37,6 @@ public class ResellerRepository implements IResellerRepository {
         return resellers.stream()
                 .filter(predicate)
                 .findFirst();
-    }
-
-    @Override
-    public boolean add(Reseller reseller) {
-        return resellers.add(reseller);
     }
 
     @Override
