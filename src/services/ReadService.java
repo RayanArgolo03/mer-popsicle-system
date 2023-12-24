@@ -28,7 +28,7 @@ public final class ReadService {
     }
 
     public static String readString(String title) {
-        System.out.print("Enter with " + title + ": ");
+        System.out.print("Enter " + title + ": ");
         return sc.next();
     }
 
