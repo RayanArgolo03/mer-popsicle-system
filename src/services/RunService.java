@@ -10,7 +10,6 @@ import enums.ConfirmChoice;
 import enums.ResellerOption;
 import enums.SystemChoice;
 import exceptions.InvoiceException;
-import exceptions.ResellerException;
 
 import java.util.InputMismatchException;
 import java.util.List;
@@ -26,21 +25,23 @@ public final class RunService {
 
         outer:
         do {
-
             try {
-                SystemChoice systemChoice = ReadService.readEnum("Choose your action", SystemChoice.class);
+
+                //Login automatically if account has been created
+                SystemChoice systemChoice = (resellerController.isAutomaticLogin())
+                        ? SystemChoice.LOGIN
+                        : ReadService.readEnum("Choose your action", SystemChoice.class);
 
                 switch (systemChoice) {
 
                     case LOGIN -> {
 
-                        Reseller reseller = resellerController.find(resellerController.login())
-                                .orElseThrow(() -> new ResellerException("Not found!"));
-
+                        //Log in or get the latest reseller addition
+                        Reseller reseller = resellerController.setInstance();
                         System.out.println("Welcome, " + reseller.getName() + "!");
 
                         inner:
-                        while (reseller.isOnline()) {
+                        while (true) {
 
                             try {
 
@@ -102,7 +103,6 @@ public final class RunService {
 
 
                                             resellerController.remove(reseller);
-
                                             break inner;
                                         }
                                     }
@@ -117,7 +117,7 @@ public final class RunService {
                                         }
 
                                         System.out.println(reseller.getName() + " offline!");
-                                        resellerController.logout(reseller);
+                                        break inner;
                                     }
 
                                 }
@@ -144,6 +144,9 @@ public final class RunService {
                         Reseller reseller = resellerController.create();
                         resellerController.add(reseller);
                         System.out.println("Create!");
+
+                        //Will automatically log you into the next pass
+                        resellerController.setAutomaticLogin(true);
                     }
 
                     case STOP -> {
