@@ -6,15 +6,18 @@ import controllers.ResellerController;
 import domain.invoice.Invoice;
 import domain.invoice.Lot;
 import domain.invoice.Reseller;
+import domain.login.Login;
 import enums.ConfirmChoice;
 import enums.ResellerOption;
 import enums.SystemChoice;
 import exceptions.InvoiceException;
+import lombok.extern.log4j.Log4j2;
 
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Set;
 
+@Log4j2
 public final class RunService {
 
     public static void run() {
@@ -26,19 +29,20 @@ public final class RunService {
         outer:
         do {
             try {
+                Reseller reseller = new Reseller("Rayan", new Login("rara", "rara"), null);
+                log.info(reseller.getId() + " conected in the system..");
 
                 //Login automatically if account has been created
-                SystemChoice systemChoice = (resellerController.isAutomaticLogin())
-                        ? SystemChoice.LOGIN
-                        : ReadService.readEnum("Choose your action", SystemChoice.class);
+                SystemChoice systemChoice = ReadService.readEnum("Choose your action", SystemChoice.class);
 
                 switch (systemChoice) {
 
                     case LOGIN -> {
 
                         //Log in or get the latest reseller addition
-                        Reseller reseller = resellerController.setInstance();
-                        System.out.println("Welcome, " + reseller.getName() + "!");
+
+
+                        //TODO ADD LOG
 
                         inner:
                         while (true) {
@@ -141,12 +145,10 @@ public final class RunService {
                     }
 
                     case CREATE_RESELLER -> {
-                        Reseller reseller = resellerController.create();
                         resellerController.add(reseller);
                         System.out.println("Create!");
 
                         //Will automatically log you into the next pass
-                        resellerController.setAutomaticLogin(true);
                     }
 
                     case STOP -> {

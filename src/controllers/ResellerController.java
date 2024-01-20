@@ -5,8 +5,6 @@ import domain.login.Login;
 import exceptions.ResellerException;
 import services.ResellerService;
 
-import java.util.Optional;
-
 public class ResellerController {
     private final ResellerService service;
 
@@ -17,10 +15,6 @@ public class ResellerController {
     public Login login() {
         if (!service.hasReseller()) throw new ResellerException("No resellers in the database!");
         return service.receiveLogin();
-    }
-
-    public void logout(Reseller reseller) {
-        service.unlogged(reseller);
     }
 
     public Reseller create() {
@@ -34,12 +28,6 @@ public class ResellerController {
 
     public void remove(Reseller reseller) {
         service.removeReseller(reseller);
-    }
-
-    public Optional<Reseller> find(Login login) {
-        Optional<Reseller> reseller = service.findReseller(login);
-        reseller.ifPresent(service::logged);
-        return reseller;
     }
 
     public void update(Reseller reseller) {

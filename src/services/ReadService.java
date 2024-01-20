@@ -13,7 +13,7 @@ public final class ReadService {
         PrintEnumsService.printEnums(enums);
         int choose = readInt("Your choice: ");
 
-        while (!validChoice(enums.length, choose)) {
+        while (!validChoice(choose, enums.length)) {
             System.out.println("Invalid!");
             PrintEnumsService.printEnums(enums);
             choose = readInt("Your choice: ");
@@ -32,7 +32,7 @@ public final class ReadService {
         return sc.next();
     }
 
-    private static boolean validChoice(int total, int choose) {
+    private static boolean validChoice(int choose, int total) {
         return choose > 0 && choose <= total;
     }
 

@@ -1,13 +1,17 @@
 package domain.invoice;
 
 import domain.login.Login;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
+@Getter
+@Setter
 public class Reseller {
 
     private static int incrementId = 1;
-    private int id;
+    private final int id;
     private String name;
     private Login login;
     private ContactPerson contactPerson;
@@ -17,30 +21,6 @@ public class Reseller {
         this.name = name;
         this.login = login;
         this.contactPerson = contactPerson;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public ContactPerson getContactPerson() {
-        return contactPerson;
-    }
-
-    public void setContactPerson(ContactPerson contactPerson) {
-        this.contactPerson = contactPerson;
-    }
-
-    public Login getLogin() {
-        return login;
-    }
-
-    public int getId() {
-        return id;
     }
 
     @Override
